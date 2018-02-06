@@ -2,15 +2,36 @@
   display: flex;
   margin: 3%;
   margin-bottom: 1%;
+  border-bottom: 1px solid gray;
 }
 .Content {
   flex: 60%;
 }
 
-.Date {
+time {
+  flex: 20%;
+  color: #999;
+  font-size: 11px;
+}
+.author {
+  color: #999;
+  font-size: 11px;
+}
+.author span {
+  text-transform: uppercase;
+}
+figure {
   flex: 20%;
 }
 
-.Image {
-  flex: 20%;
+img {
+  width: 200px;
+  height: 140px;
+}
+
+a {
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+  margin: 0;
 }

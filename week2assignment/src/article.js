@@ -1,13 +1,24 @@
 import React, { Component } from "react";
-import Date from "./date.js";
-import Content from "./content.js";
-import Image from "./image.js";
-import Author from "./author.js";
 import "./article.css";
 
 class Article extends Component {
   render() {
-    return <div className="Article">{this.props.children}</div>;
+    return (
+      <div className="Article">
+        <time>{this.props.date}</time>
+
+        <div className="Content">
+          <a href={this.props.link}>{this.props.title}</a>
+          <p>{this.props.body}</p>
+          <p className="author">
+            By <span>{this.props.name}</span>
+          </p>
+        </div>
+        <figure>
+          <img src={this.props.src} alt="Image not found." />
+        </figure>
+      </div>
+    );
   }
 }
 
