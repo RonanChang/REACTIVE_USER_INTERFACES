@@ -7,23 +7,40 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      label_1: "Choice 1",
-      label_2: "Choice 2",
-      show: ""
+      clikedLabel: ""
     };
     this.register = this.register.bind(this);
   }
-  register(l) {
+  register(label) {
     this.setState({
-      show: l
+      clickedLabel: label
     });
   }
+
   render() {
+    var labels = ["First Button", "Second Button", "Third Button"];
+    var choices = [];
+    var num_choices = 3;
+    for (var i = 0; i < num_choices; i++) {
+      choices.push(
+        <Choice
+          bgcolor={
+            this.state.clickedLabel === labels[i] ? "rgb(27,173,172)" : "white"
+          }
+          textcolor={
+            this.state.clickedLabel === labels[i]
+              ? "white"
+              : "rgb(48, 135, 134)"
+          }
+          label={labels[i]}
+          onClick={this.register}
+        />
+      );
+    }
     return (
       <div className="App">
-        <Choice label={this.state.label_1} onClick={this.register} />
-        <Choice label={this.state.label_2} onClick={this.register} />
-        <Screen count={this.state.show} />
+        {choices}
+        <Screen count={this.state.clickedLabel} />
       </div>
     );
   }

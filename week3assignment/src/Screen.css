@@ -1,0 +1,15 @@
+.Screen {
+  background-color: rgb(236, 236, 236);
+  width: 642px;
+  height: 135px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+
+p {
+  font-size: 30px;
+  margin: 0;
+  line-height: 135px;
+  text-align: center;
+  color: rgb(95, 95, 95);
+}
