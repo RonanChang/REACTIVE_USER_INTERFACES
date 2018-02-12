@@ -31,6 +31,7 @@ class App extends Component {
           }
           label={label}
           onClick={this.register}
+          key={label}
         />
       );
     });
