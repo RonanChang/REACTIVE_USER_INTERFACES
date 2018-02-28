@@ -1,0 +1,10 @@
+.Tweet {
+  display: flex;
+}
+
+#username {
+  flex: 50%;
+}
+#context {
+  flex: 50%;
+}
