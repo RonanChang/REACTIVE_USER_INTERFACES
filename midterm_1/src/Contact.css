@@ -1,0 +1,11 @@
+.Contact {
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+
+#name {
+  flex: 50%;
+}
+#detail {
+  flex: 50%;
+}
