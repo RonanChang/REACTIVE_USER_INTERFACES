@@ -184,14 +184,14 @@ class App extends Component {
         <label htmlFor="search"> Search For: </label>
         <input type="text" onChange={this.onSearch} />
         <br />
-
+        //ADD NEW CONTACTS TO THE LIST
         <label htmlFor="addNew"> Add a new contact: </label>
-        <form onSubmit={this.addedNew}>
-          Name:<input name="name" type="text" onChange={this.addNew} />
-          Phone:<input name="phone" type="text" onChange={this.addNew} />
+        <form onSubmit={this.addNew}>
+          Name:<input name="name" type="text" />
+          Phone:<input name="phone" type="text" />
           Address:<input name="address" type="text" onChange={this.addNew} />
+          <input type="submit" />
         </form>
-
         {contacts}
       </div>
     );
