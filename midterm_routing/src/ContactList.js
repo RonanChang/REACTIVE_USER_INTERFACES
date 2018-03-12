@@ -3,7 +3,7 @@ import Contact from "./Contact.js";
 import "./App.css";
 import AddNew from "./AddNew";
 
-class App extends Component {
+class ContactList extends Component {
   constructor(props) {
     super(props);
     this.sortOrder = this.sortOrder.bind(this);
@@ -16,56 +16,7 @@ class App extends Component {
       sortBy: "last",
       search: "",
       filterBy: "no_filter",
-      contacts: [
-        {
-          last_name: "Chang",
-          first_name: "Ronan",
-          phone: "123456",
-          address: "shanghai",
-          course: "IMA",
-          country: "China"
-        },
-        {
-          last_name: "Morlock",
-          first_name: "Fred",
-          phone: "123456",
-          address: "shanghai",
-          course: "CS",
-          country: "USA"
-        },
-        {
-          last_name: "Zhang",
-          first_name: "Milton",
-          phone: "123456",
-          address: "shanghai",
-          course: "Finance",
-          country: "USA"
-        },
-        {
-          last_name: "Madsen",
-          first_name: "Rune",
-          phone: "123456",
-          address: "shanghai",
-          course: "IMA",
-          country: "Denmark"
-        },
-        {
-          last_name: "Zhang",
-          first_name: "Romola",
-          phone: "123456",
-          address: "shanghai",
-          course: "IMA",
-          country: "China"
-        },
-        {
-          last_name: "Chen",
-          first_name: "Fiona",
-          phone: "12345678",
-          address: "shanghai",
-          course: "Finance",
-          country: "China"
-        }
-      ]
+      contacts: this.props.contacts
     };
   }
   sortOrder(e) {
@@ -185,7 +136,7 @@ class App extends Component {
       );
     });
     return (
-      <div className="App">
+      <div className="ContactList">
         <label htmlFor="sortOrder">Sort Order: </label>
         <select id="sortOrder" defaultValue="asc" onChange={this.sortOrder}>
           <option value="desc">Descending</option>
@@ -224,4 +175,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ContactList;
