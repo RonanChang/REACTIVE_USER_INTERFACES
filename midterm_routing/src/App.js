@@ -14,18 +14,18 @@ class App extends Component {
           first_name: "Ronan",
           phone: "18317145280",
           address: "shanghai",
-          course: "IMA",
+          course: ["IMA", "Computer Science"],
           country: "China",
-          id: "C"
+          id: 1
         },
         {
           last_name: "Morlock",
           first_name: "Fred",
           phone: "15618754060",
           address: "shanghai",
-          course: "CS",
-          country: "USA",
-          id: "M"
+          course: ["Computer Science", "Honors Math"],
+          country: "US",
+          id: 2
         },
         {
           last_name: "Zhang",
@@ -33,8 +33,8 @@ class App extends Component {
           phone: "123456",
           address: "shanghai",
           course: "Finance",
-          country: "USA",
-          id: "Z"
+          country: "US",
+          id: 3
         },
         {
           last_name: "Madsen",
@@ -43,40 +43,250 @@ class App extends Component {
           address: "shanghai",
           course: "IMA",
           country: "Denmark",
-          id: "M"
+          id: 4
         },
         {
-          last_name: "Zhang",
-          first_name: "Romola",
+          last_name: "Kang",
+          first_name: "Katniss",
           phone: "123456",
           address: "shanghai",
           course: "IMA",
           country: "China",
-          id: "Z"
+          id: 5
         },
         {
-          last_name: "Chen",
-          first_name: "Fiona",
+          last_name: "Xu",
+          first_name: "Diana",
           phone: "12345678",
           address: "shanghai",
           course: "Finance",
           country: "China",
-          id: "C"
+          id: 6
+        },
+        {
+          last_name: "00",
+          first_name: "11",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Computer Science",
+          country: "China",
+          id: 7
+        },
+        {
+          last_name: "Song",
+          first_name: "Chloe",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 8
+        },
+        {
+          last_name: "Pan",
+          first_name: "Casey",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 9
+        },
+        {
+          last_name: "Zou",
+          first_name: "Billy",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Computer Science",
+          country: "China",
+          id: 10
+        },
+        {
+          last_name: "Bruce",
+          first_name: "Luo",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "China",
+          id: 11
+        },
+        {
+          last_name: "Shiny",
+          first_name: "Wu",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "China",
+          id: 12
+        },
+        {
+          last_name: "Moon",
+          first_name: "JH",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "Korea",
+          id: 13
+        },
+        {
+          last_name: "Fang",
+          first_name: "Fang",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 14
+        },
+        {
+          last_name: "Dai",
+          first_name: "Faye",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Data Science",
+          country: "China",
+          id: 15
+        },
+        {
+          last_name: "Ernst",
+          first_name: "Amy",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "US",
+          id: 16
+        },
+        {
+          last_name: "Qu",
+          first_name: "Yingzi",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 17
+        },
+        {
+          last_name: "Au",
+          first_name: "Amy",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 18
+        },
+        {
+          last_name: "Zhang",
+          first_name: "Xinyi",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Data Science",
+          country: "China",
+          id: 19
+        },
+        {
+          last_name: "Wang",
+          first_name: "Jerry",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "China",
+          id: 20
+        },
+        {
+          last_name: "Guo",
+          first_name: "Naijia",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "China",
+          id: 21
+        },
+        {
+          last_name: "Wynn",
+          first_name: "Illenna",
+          phone: "12345678",
+          address: "shanghai",
+          course: "IMA",
+          country: "Germany",
+          id: 22
+        },
+        {
+          last_name: "Hou",
+          first_name: "Xuedan",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "China",
+          id: 23
+        },
+        {
+          last_name: "Hou",
+          first_name: "Xuedan",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "China",
+          id: 24
+        },
+        {
+          last_name: "Kim",
+          first_name: "Ho Bin",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "China",
+          id: 25
+        },
+        {
+          last_name: "Jiang",
+          first_name: "Lavenda",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "China",
+          id: 26
+        },
+        {
+          last_name: "I",
+          first_name: "U",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Social Science",
+          country: "China",
+          id: 27
+        },
+        {
+          last_name: "Liang",
+          first_name: "Zach",
+          phone: "12345678",
+          address: "shanghai",
+          course: "Finance",
+          country: "China",
+          id: 28
         }
       ]
     };
   }
   render() {
+    let contactsCopy = this.state.contacts.slice();
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={ContactList} />
+          <Route
+            exact
+            path="/"
+            component={props => {
+              return (
+                <ContactList
+                  contacts={this.state.contacts}
+                  contactsCopy={contactsCopy}
+                />
+              );
+            }}
+          />
           <Route
             path="/contacts/:id"
             render={props => {
               // Find contact
               const contact = this.state.contacts.find(
-                c => c.id === parseInt(props.match.params.id)
+                c => c.id === parseInt(props.match.params.id, 10)
               );
 
               // Pass to component as prop

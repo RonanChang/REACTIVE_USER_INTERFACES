@@ -1,0 +1,15 @@
+.ContactWithLink {
+  border-bottom: 1px solid grey;
+}
+
+.ContactList {
+  display: flex;
+}
+.AllContacts {
+  flex: 90%;
+
+  overflow: scroll;
+}
+.ContactList.LetterSort {
+  position: sticky;
+}
