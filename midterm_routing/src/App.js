@@ -100,8 +100,8 @@ class App extends Component {
           id: 10
         },
         {
-          last_name: "Bruce",
-          first_name: "Luo",
+          last_name: "Luo",
+          first_name: "Bruce",
           phone: "12345678",
           address: "shanghai",
           course: "IMA",
@@ -109,8 +109,8 @@ class App extends Component {
           id: 11
         },
         {
-          last_name: "Shiny",
-          first_name: "Wu",
+          last_name: "Wu",
+          first_name: "Shiny",
           phone: "12345678",
           address: "shanghai",
           course: "IMA",
@@ -118,8 +118,8 @@ class App extends Component {
           id: 12
         },
         {
-          last_name: "Moon",
-          first_name: "JH",
+          last_name: "JH",
+          first_name: "Moon",
           phone: "12345678",
           address: "shanghai",
           course: "IMA",
@@ -217,11 +217,11 @@ class App extends Component {
           id: 23
         },
         {
-          last_name: "Hou",
-          first_name: "Xuedan",
+          last_name: "Liang",
+          first_name: "Zach",
           phone: "12345678",
           address: "shanghai",
-          course: "Social Science",
+          course: "Finance",
           country: "China",
           id: 24
         },
@@ -253,11 +253,11 @@ class App extends Component {
           id: 27
         },
         {
-          last_name: "Liang",
-          first_name: "Zach",
+          last_name: "123",
+          first_name: "56",
           phone: "12345678",
           address: "shanghai",
-          course: "Finance",
+          course: "Social Science",
           country: "China",
           id: 28
         }

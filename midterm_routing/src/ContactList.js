@@ -84,10 +84,12 @@ class ContactList extends Component {
       for (let i = 0; i < contactsCopy.length; i++) {
         let letter = contactsCopy[i].last_name[0];
 
-        if (!letters.includes(letter)) {
-          if (this.isAlpha(letter)) {
+        if (this.isAlpha(letter)) {
+          if (!letters.includes(letter)) {
             letters.push(letter);
-          } else {
+          }
+        } else {
+          if (!letters.includes("#")) {
             letters.push("#");
           }
         }
@@ -126,10 +128,13 @@ class ContactList extends Component {
       //for the letter buttons
       for (let i = 0; i < contactsCopy.length; i++) {
         let letter = contactsCopy[i].first_name[0];
-        if (!letters.includes(letter)) {
-          if (this.isAlpha(letter)) {
+
+        if (this.isAlpha(letter)) {
+          if (!letters.includes(letter)) {
             letters.push(letter);
-          } else {
+          }
+        } else {
+          if (!letters.includes("#")) {
             letters.push("#");
           }
         }
@@ -173,12 +178,13 @@ class ContactList extends Component {
     }
 
     //return <Contact /> with a Link to ContactPage
-    const contacts = contactsCopy.map((contact, i) => {
+    const contacts = contactsCopy.map(contact => {
       const letterID =
-        this.state.SortBy === "last_name"
+        this.state.sortBy === "last_name"
           ? this.isAlpha(contact.last_name[0]) ? contact.last_name[0] : "#"
           : this.isAlpha(contact.first_name[0]) ? contact.first_name[0] : "#";
 
+      //console.log(letterID);
       return (
         <div className="ContactWithLink" key={contact.id} id={letterID}>
           <Contact
@@ -209,8 +215,8 @@ class ContactList extends Component {
     });
 
     const LetterSorts = letters.map((letter, i) => {
-      const label = "#" + letter;
-      return <LetterSort key={i} label={label} letter={letter} />;
+      const link = "#" + letter;
+      return <LetterSort key={i} link={link} letter={letter} />;
     });
 
     //sort by courses
@@ -231,12 +237,6 @@ class ContactList extends Component {
       } else {
         countries.push(country);
       }
-      // if (!courses.includes(course)) {
-      //   courses.push(course);
-      // }
-      // if (!countries.includes(country)) {
-      //   countries.push(country);
-      // }
     }
     courses = Array.from(new Set(courses));
     countries = Array.from(new Set(countries));
@@ -273,9 +273,16 @@ class ContactList extends Component {
             <option value="last">Last Name</option>
           </select>
           <br />
-          <label htmlFor="search"> Search For: </label>
-          <input type="text" onChange={this.onSearch} />
-          <button onClick={this.clearSearch}>Clear</button>
+
+          <div className="Search">
+            <label htmlFor="search"> Search For: </label>
+            <input
+              type="text"
+              onChange={this.onSearch}
+              value={this.state.search}
+            />
+            <button onClick={this.clearSearch}>Clear</button>
+          </div>
           <br />
 
           <select
@@ -283,28 +290,15 @@ class ContactList extends Component {
             defaultValue="no_filter"
             onChange={this.filterBy}
           >
-            <optgroup label="Course">
-              {
-                // <option value="IMA"> IMA </option>
-                // <option value="CS">Computer Science</option>
-                // <option value="Finance">Finance</option>
-              }
-              {CourseOptions}
-            </optgroup>
+            <optgroup label="Course">{CourseOptions}</optgroup>
 
-            <optgroup label="Country">
-              {
-                // <option value="China"> China </option>
-                // <option value="USA">USA</option>
-              }
-              {CountryOptions}
-            </optgroup>
+            <optgroup label="Country">{CountryOptions}</optgroup>
             <option value="no_filter">Show All</option>
           </select>
           <br />
           <AddNew addNew={this.addNew} />
 
-          <Highlight search={this.state.search}>{contacts}</Highlight>
+          {contacts}
         </div>
 
         <div className="LetterSort">{LetterSorts}</div>

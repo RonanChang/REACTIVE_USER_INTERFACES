@@ -5,7 +5,7 @@ class LetterSort extends Component {
   render() {
     return (
       <div className="Contact">
-        <a href={this.props.label}>{this.props.letter}</a>
+        <a href={this.props.link}>{this.props.letter}</a>
       </div>
     );
   }
