@@ -13,8 +13,14 @@ class Contact extends Component {
           </h3>
 
           <div id="detail">
-            <p id="phone">{this.props.phone}</p>
-            <p id="address">{this.props.room_num}</p>
+            <div className="phone">
+              <img className="phoneicon" src="../phoneicon.png" />
+              <p>{this.props.phone}</p>
+            </div>
+            <div className="room">
+              <img className="locationicon" src="../locationicon.png" />
+              <p>{this.props.room_num}</p>
+            </div>
           </div>
         </div>
       );
