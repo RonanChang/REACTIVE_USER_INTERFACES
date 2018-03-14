@@ -1,0 +1,12 @@
+.LetterSort {
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+  margin: auto;
+  outline: none;
+  display: block;
+  line-height: 22px;
+}
+.LetterSort a {
+  color: #eeeeee;
+}

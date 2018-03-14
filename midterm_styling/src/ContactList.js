@@ -1,11 +1,38 @@
 import React, { Component } from "react";
 import Contact from "./Contact.js";
+import Modal from "react-modal";
 import "./ContactList.css";
 import AddNew from "./AddNew";
 import { Link } from "react-router-dom";
 import LetterSort from "./LetterSort";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
+const addStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    height: "400px",
+    width: "300px",
+    backgroundColor: "#eeeeee"
+  }
+};
+const sortStyles = {
+  content: {
+    top: "80%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    height: "150px",
+    width: "356px",
+    backgroundColor: "rgb(192, 200, 200)",
+    color: "rgb(102,118,118)"
+  }
+};
 class ContactList extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +45,39 @@ class ContactList extends Component {
     this.clearSearch = this.clearSearch.bind(this);
     this.assignID = this.assignID.bind(this);
     this.updateAppContacts = this.updateAppContacts.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.openSort = this.openSort.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.closeSort = this.closeSort.bind(this);
+    //this.afterOpenModal = this.afterOpenModal.bind(this);
+
     this.state = {
       sortOrder: "asc",
       sortBy: "last_name",
       search: "",
       filterBy: "no_filter",
+      isModalOpen: false,
+      isSortOpen: false,
       contacts: this.props.contacts
     };
+  }
+
+  openModal() {
+    this.setState({ isModalOpen: true });
+  }
+  openSort() {
+    this.setState({ isSortOpen: true });
+  }
+
+  closeModal() {
+    this.setState({
+      isModalOpen: false
+    });
+  }
+  closeSort() {
+    this.setState({
+      isSortOpen: false
+    });
   }
   sortOrder(e) {
     if (e.target.value === "desc") {
@@ -66,6 +119,7 @@ class ContactList extends Component {
     contactsvar.push(state);
     //console.log(state);
     this.updateAppContacts(contactsvar);
+
     this.setState({
       contacts: contactsvar
     });
@@ -86,7 +140,7 @@ class ContactList extends Component {
       contact.id = i + 1;
     }
 
-    console.log(this.state.contacts);
+    //console.log(this.state.contacts);
   }
 
   updateAppContacts(contactsvar) {
@@ -187,6 +241,17 @@ class ContactList extends Component {
 
     //filter
     if (this.state.filterBy !== "no_filter") {
+      if (this.state.filterBy === "2" || this.state.filterBy === "3") {
+        contactsCopy = contactsCopy.filter(contact => {
+          for (let key in contact) {
+            if (contact.room_num.match(this.state.filterBy)) {
+              return true;
+            }
+          }
+          return false;
+        });
+      }
+
       contactsCopy = contactsCopy.filter(contact => {
         for (let key in contact) {
           if (contact[key].toString().match(this.state.filterBy)) {
@@ -207,16 +272,19 @@ class ContactList extends Component {
       //console.log(letterID);
       return (
         <div className="ContactWithLink" key={contact.id} id={letterID}>
-          <Contact
-            first_name={contact.first_name}
-            last_name={contact.last_name}
-            phone={contact.phone}
-            address={contact.address}
-            course={contact.course}
-            country={contact.country}
-            sortBy={this.state.sortBy}
-          />
-          <Link to={"/contacts/" + contact.id}>Go to person</Link>
+          <Link to={"/contacts/" + contact.id}>
+            <Contact
+              first_name={contact.first_name}
+              last_name={contact.last_name}
+              phone={contact.phone}
+              address={contact.address}
+              course={contact.course}
+              country={contact.country}
+              email={contact.email}
+              room_num={contact.room_num}
+              sortBy={this.state.sortBy}
+            />
+          </Link>
         </div>
       );
     });
@@ -242,10 +310,11 @@ class ContactList extends Component {
     //sort by courses
     let courses = [];
     let countries = [];
+    let rooms = [];
     for (let i = 0; i < contactsCopy.length; i++) {
       const course = contactsCopy[i].course;
       const country = contactsCopy[i].country;
-
+      const room = contactsCopy[i].room_num;
       if (Array.isArray(course)) {
         courses.concat(course);
       } else {
@@ -257,9 +326,12 @@ class ContactList extends Component {
       } else {
         countries.push(country);
       }
+
+      rooms.push(room[1]);
     }
     courses = Array.from(new Set(courses));
     countries = Array.from(new Set(countries));
+    rooms = Array.from(new Set(rooms));
     const CourseOptions = courses.map((course, i) => {
       return (
         <option key={i} value={course}>
@@ -276,52 +348,102 @@ class ContactList extends Component {
       );
     });
 
-    var Highlight = require("react-highlighter");
+    const RoomOptions = rooms.map((room, i) => {
+      return (
+        <option key={i} value={room}>
+          Tower {room}
+        </option>
+      );
+    });
+
+    //var Highlight = require("react-highlighter");
 
     return (
       <div className="ContactList">
         <div className="AllContacts">
-          <label htmlFor="sortOrder">Sort Order: </label>
-          <select id="sortOrder" defaultValue="asc" onChange={this.sortOrder}>
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-          <br />
-          <label htmlFor="sortBy">Sort By: </label>
-          <select id="sortBy" defaultValue="last" onChange={this.sortBy}>
-            <option value="first">First Name</option>
-            <option value="last">Last Name</option>
-          </select>
-          <br />
+          <div className="search_add">
+            <div className="searchBox">
+              <div className="searchIcon">
+                <img
+                  className="searchImg"
+                  src="../searchicon.png"
+                  width="50px"
+                  height="auto"
+                />
+              </div>
+              <input
+                className="searchArea"
+                type="text"
+                onChange={this.onSearch}
+                value={this.state.search}
+                placeholder="Enter search term"
+              />
+              <button className="clearSearch" onClick={this.clearSearch}>
+                <img src="../clearicon.png" height="30px" />
+              </button>
+            </div>
 
-          <div className="Search">
-            <label htmlFor="search"> Search For: </label>
-            <input
-              type="text"
-              onChange={this.onSearch}
-              value={this.state.search}
-            />
-            <button onClick={this.clearSearch}>Clear</button>
+            <div className="addModal">
+              <button onClick={this.openModal}>
+                <img className="addicon" src="../addicon.png" height="30px" />
+              </button>
+              <Modal
+                isOpen={this.state.isModalOpen}
+                onRequestClose={this.closeModal}
+                style={addStyles}
+                contentLabel="Add new contact"
+              >
+                <AddNew addNew={this.addNew} />
+              </Modal>
+            </div>
           </div>
-          <br />
 
-          <select
-            id="filterBy"
-            defaultValue="no_filter"
-            onChange={this.filterBy}
-          >
-            <optgroup label="Course">{CourseOptions}</optgroup>
-
-            <optgroup label="Country">{CountryOptions}</optgroup>
-            <option value="no_filter">Show All</option>
-          </select>
-          <br />
-          <AddNew addNew={this.addNew} />
-
-          {contacts}
+          <div className="contactList"> {contacts} </div>
         </div>
 
-        <div className="LetterSort">{LetterSorts}</div>
+        <div className="sidebar">
+          <div className="LetterSorts">{LetterSorts}</div>
+          <div className="sortModal">
+            <button onClick={this.openSort}>
+              <img src="../settingsicon.png" height="50px" />
+            </button>
+            <Modal
+              isOpen={this.state.isSortOpen}
+              onRequestClose={this.closeSort}
+              style={sortStyles}
+              contentLabel="sort_filter"
+            >
+              <label htmlFor="sortOrder">Sort Order: </label>
+              <select
+                id="sortOrder"
+                defaultValue="asc"
+                onChange={this.sortOrder}
+              >
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+              <br />
+
+              <label htmlFor="sortBy">Sort By: </label>
+              <select id="sortBy" defaultValue="last" onChange={this.sortBy}>
+                <option value="first">First Name</option>
+                <option value="last">Last Name</option>
+              </select>
+              <br />
+              <label htmlFor="filterBy">Filter By: </label>
+              <select
+                id="filterBy"
+                defaultValue="no_filter"
+                onChange={this.filterBy}
+              >
+                <optgroup label="Course">{CourseOptions}</optgroup>
+                <optgroup label="Country">{CountryOptions}</optgroup>
+                <optgroup label="Room">{RoomOptions}</optgroup>
+                <option value="no_filter">Show All</option>
+              </select>
+            </Modal>
+          </div>
+        </div>
       </div>
     );
   }

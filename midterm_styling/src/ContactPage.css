@@ -1,0 +1,57 @@
+.ContactPage {
+  height: 636px;
+}
+
+.ContactPage p {
+  margin: 30px;
+  font-size: 20px;
+  background-color: #eeeeee;
+  padding: 10px;
+  color: rgb(129, 147, 147);
+  border-radius: 10px;
+  display: flex;
+}
+
+p label {
+  flex: 10px;
+}
+
+p .information {
+  flex: 40%;
+}
+.ContactPage a {
+  text-decoration: none;
+  margin: 0px;
+}
+
+.ContactPage .profileimg {
+  margin-left: 100px;
+}
+
+.returnicon {
+  filter: invert(100%);
+  margin-left: 0px;
+  margin-top: 5px;
+}
+
+.topbar {
+  display: flex;
+}
+.topbar Link {
+  flex: 20%;
+}
+
+.topbar h1 {
+  flex: 80%;
+  margin: 0px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: #eeeeee;
+  color: rgb(129, 147, 147);
+  text-align: center;
+  border-radius: 10px;
+}

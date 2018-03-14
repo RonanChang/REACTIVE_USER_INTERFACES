@@ -1,0 +1,116 @@
+.ContactWithLink a {
+  display: i;
+  border-bottom: 0.5px solid grey;
+  border-radius: 3px;
+  color: black;
+  text-decoration: None;
+}
+.ContactWithLink .Contact {
+  text-decoration: None;
+}
+
+.AllContacts {
+  flex: 90%;
+  width: 380px;
+  background-color: rgb(129, 147, 147);
+  font-family: Helvetica Neue;
+}
+.contactList {
+  padding-top: 40px;
+  padding-bottom: 30px;
+  height: 500px;
+  overflow: scroll;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-size: 16px;
+  position: fixed;
+  top: 120px;
+  right: 15px;
+  height: 600px;
+}
+.LetterSorts {
+  text-align: right;
+  font-size: 16px;
+  position: fixed;
+  top: 100px;
+  right: 15px;
+  width: 40px;
+}
+.sortModal {
+  margin-top: 430px;
+  margin-right: -10px;
+  flex: 20%;
+}
+
+.search_add {
+  font-family: Helvetica Neue;
+  padding-bottom: 10px;
+  position: fixed;
+  display: flex;
+  background-color: #eeeeee;
+  background-color: rgb(129, 147, 147);
+}
+.searchIcon {
+  width: 30px;
+  margin: 0px;
+}
+.searchImg {
+  margin-top: -5px;
+  margin-left: -5px;
+  filter: invert(100%);
+}
+.searchBox {
+  flex: 70%;
+  display: flex;
+  font-size: 12px;
+
+  margin-right: 5px;
+  width: 300px;
+  height: 35px;
+  text-align: center;
+
+  border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 11px;
+}
+.searchArea {
+  font-size: 14px;
+  margin-left: 12px;
+  margin-right: 5px;
+
+  background-color: rgb(129, 147, 147);
+  width: 230px;
+  height: 32px;
+  text-align: center;
+  padding: 0;
+  border: none;
+  color: #eeeeee;
+}
+.clearSearch {
+  width: auto;
+  margin: 0px;
+  filter: invert(100%);
+}
+
+select {
+  margin: 10px;
+  border: none;
+  font-size: 16px;
+  color: rgb(129, 147, 147);
+}
+
+.addicon {
+  filter: invert(100%);
+  padding-left: 15px;
+}
+::placeholder {
+  color: #eeeeee;
+}
+
+input,
+button {
+  outline: none;
+}
