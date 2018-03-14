@@ -27,8 +27,8 @@ const sortStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    height: "150px",
-    width: "356px",
+    height: "200px",
+    width: "386px",
     backgroundColor: "rgb(192, 200, 200)",
     color: "rgb(102,118,118)"
   }
