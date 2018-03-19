@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import AddNew from "./addNew.js";
+import Form from "./Form.js";
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <AddNew onSubmit={this.addPerson} />
+        <Form onSubmit={this.addPerson} />
         <h2>My List</h2>
         {list}
       </div>

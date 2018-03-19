@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class AddNew extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
@@ -28,7 +28,7 @@ class AddNew extends Component {
   }
   render() {
     return (
-      <div className="AddNew">
+      <div className="Form">
         <input
           type="text"
           name="name"
@@ -48,4 +48,4 @@ class AddNew extends Component {
   }
 }
 
-export default AddNew;
+export default Form;
