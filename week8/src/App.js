@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
 import "./App.css";
+import AddNew from "./addNew.js";
 
 class App extends Component {
   constructor(props) {
@@ -15,20 +15,28 @@ class App extends Component {
     };
   }
 
-  addPerson() {
+  addPerson(state) {
     let copy = this.state.contacts.slice();
-    copy.push({ name: "Person 4", email: "fourth@person.com" });
+    copy.push(state);
     this.setState({
       contacts: copy
     });
   }
   render() {
-    const list = this.state.contacts.map(person => {
-      <p>
-        {person.name} - {person.email}
-      </p>;
+    const list = this.state.contacts.map((person, i) => {
+      return (
+        <p key={i}>
+          {person.name} - {person.email}
+        </p>
+      );
     });
-    return <div className="App">{list}</div>;
+    return (
+      <div className="App">
+        <AddNew onSubmit={this.addPerson} />
+        <h2>My List</h2>
+        {list}
+      </div>
+    );
   }
 }
 
