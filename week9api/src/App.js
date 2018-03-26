@@ -11,7 +11,7 @@ class App extends Component {
   }
   componentDidMount() {
     fetch(
-      "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=2663a6d57fc14ea28fb2c6aa07827f5d"
+      "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=a1c9e21100034d26ba92568902613e17"
     )
       .then(response => {
         return response.json();
