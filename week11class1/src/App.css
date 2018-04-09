@@ -1,0 +1,32 @@
+.App {
+}
+
+header {
+  background-color: green;
+  padding: 10px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+aside {
+  flex: 0 0 200px;
+  background-color: red;
+  display: none;
+  padding: 20px;
+}
+main {
+  flex: 1;
+  background-color: blue;
+  padding: 20px;
+}
+
+@media (min-width: 500px) {
+  header {
+    padding: 20px;
+  }
+  aside {
+    display: block;
+  }
+}
