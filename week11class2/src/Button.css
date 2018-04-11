@@ -1,0 +1,26 @@
+.Button {
+  background-color: pink;
+  color: white;
+  padding: 30px;
+  margin: 20px;
+  font-size: 25px;
+  border: none;
+  border-radius: 10px;
+}
+
+@keyframes changebgcolor {
+  0% {
+    background-color: pink;
+  }
+  50% {
+    background: red;
+  }
+  100% {
+    background-color: pink;
+  }
+}
+
+.Animation {
+  animation-name: changebgcolor;
+  animation-duration: 0.5s;
+}

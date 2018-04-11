@@ -1,0 +1,41 @@
+.App {
+  margin: 30px;
+}
+
+.menu {
+  width: 150px;
+  background-color: pink;
+  border: none;
+  border-radius: 10px;
+
+  font-size: 20px;
+}
+@keyframes showmenu {
+  from {
+    height: 0%;
+  }
+
+  to {
+    height: 150px;
+  }
+}
+.menu-enter {
+  animation-name: showmenu;
+  animation-duration: 1s;
+}
+
+.menu-exit {
+  animation-name: showmenu;
+  animation-direction: reverse;
+  animation-duration: 3s;
+}
+.menubutton {
+  font-size: 20px;
+  width: 150px;
+  color: white;
+  background-color: pink;
+  padding: 20px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
