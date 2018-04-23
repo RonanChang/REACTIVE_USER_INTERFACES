@@ -6,23 +6,16 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty()
-    };
-    this.onChange = this.onChange.bind(this);
+    this.editorChanged = this.editorChanged.bind(this);
   }
-  onChange(state) {
-    console.log(this.state.editorState.getCurrentContent());
-    this.setState({ state });
+  editorChanged(state) {
+    console.log(state);
   }
   render() {
     return (
       <div className="App">
         hello
-        <MyEditor
-          editorState={this.state.editorState}
-          onChange={this.onChange}
-        />
+        <MyEditor onChange={this.editorChanged} />
         here
         <button onClick={this.addInput}>Add input</button>
       </div>

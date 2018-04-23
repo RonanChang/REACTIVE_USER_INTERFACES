@@ -22,11 +22,11 @@ class App extends Component {
 
         <div contentEditable="true"> I can be moved around </div>
 
-        <Draggable>
+        <Draggable enableUserSelectHack={false}>
           <div contentEditable="true"> I can be moved around </div>
         </Draggable>
 
-        <Draggable>
+        <Draggable enableUserSelectHack={false}>
           <input type="text" />
         </Draggable>
 
