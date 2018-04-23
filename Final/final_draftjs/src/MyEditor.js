@@ -8,20 +8,24 @@ class MyEditor extends Component {
     this.state = {
       editorState: EditorState.createEmpty()
     };
-    //this.onChange = editorState => this.setState({ editorState });
+    this.onChange = this.onChange.bind(this);
   }
   _onBoldClick() {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
   }
-  onChange() {
-    this.props.onChange(this.state.editorState);
-    //console.log(this.state.editorState.getCurrentContent());
+  onChange(editorState) {
+    this.setState({ editorState });
+    this.props.onChange(this.props.label, this.state.editorState);
   }
   render() {
     return (
       <div className="MyEditor">
         <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-        <Editor editorState={this.state.editorState} onChange={this.onChange} />
+        <Editor
+          label={this.props.label}
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+        />
       </div>
     );
   }
