@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Input.css";
 import ContentEditable from "react-contenteditable";
-
+import Draggable from "react-draggable";
 class Input extends Component {
   constructor(props) {
     super(props);
@@ -16,17 +16,19 @@ class Input extends Component {
   }
   render() {
     return (
-      <div className="Input">
-        <ContentEditable
-          label={this.props.label}
-          html={this.props.html} // innerHTML of the editable div
-          disabled={false} // use true to disable edition
-          onChange={this.onChange} // handle innerHTML change
-        />
-        <button className="deleteButton" onClick={this.Delete}>
-          Delete
-        </button>
-      </div>
+      <Draggable enableUserSelectHack={false}>
+        <div className="Input">
+          <ContentEditable
+            label={this.props.label}
+            html={this.props.html} // innerHTML of the editable div
+            disabled={false} // use true to disable edition
+            onChange={this.onChange} // handle innerHTML change
+          />
+          <button className="deleteButton" onClick={this.Delete}>
+            Delete
+          </button>
+        </div>
+      </Draggable>
     );
   }
 }
