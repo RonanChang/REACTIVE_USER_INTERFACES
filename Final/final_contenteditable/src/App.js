@@ -35,6 +35,7 @@ class App extends Component {
 
   Delete(label) {
     const htmlCopy = this.state.htmls.slice();
+
     htmlCopy.splice(label, 1);
     this.setState({
       htmls: htmlCopy
