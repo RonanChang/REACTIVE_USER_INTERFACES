@@ -1,18 +1,13 @@
 {
-  "name": "final_draftjs",
+  "name": "final_drafttohtml",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "draft-js": "^0.10.5",
     "draft-js-export-html": "^1.2.0",
-    "install": "^0.11.0",
-    "npm": "^6.0.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-draggable": "^3.0.5",
-    "react-modal": "^3.4.4",
-    "react-resizable": "^1.7.5",
-    "react-rnd": "^7.4.0",
+    "react-draft-wysiwyg": "^1.12.13",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },

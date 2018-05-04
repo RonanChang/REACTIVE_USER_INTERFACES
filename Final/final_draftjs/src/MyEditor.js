@@ -1,32 +1,62 @@
 import React, { Component } from "react";
 import { Modifier, Editor, EditorState, RichUtils } from "draft-js";
-import Draggable from "react-draggable";
+import Modal from "react-modal";
 import "./MyEditor.css";
 //import FontControls from "./fontBtn.js";
-import Rnd from "react-rnd";
+import { stateToHTML } from "draft-js-export-html";
+import { Link } from "react-router-dom";
 
-const rndstyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  border: "solid 1px #ddd",
-  background: "#ff000017",
-  padding: "25px",
-  borderRadius: "10px"
+// const rndstyle = {
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   border: "solid 1px #ddd",
+//   background: "#ff000017",
+//   padding: "25px",
+//   borderRadius: "10px"
+// };
+const colorStyles = {
+  content: {
+    top: "auto",
+    left: "50%",
+    right: "auto",
+    bottom: "-20%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "950px",
+    backgroundColor: "rgb(192, 200, 200)",
+    color: "rgb(102,118,118)",
+    padding: "50px"
+  }
 };
+
 class MyEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      modalIsOpen: false
     };
     this.onChange = this.onChange.bind(this);
     this.focus = () => this.editor.focus();
     this.toggleColor = toggledColor => this._toggleColor(toggledColor);
     //this.toggleFont = toggledFont => this._toggleFont(toggledFont);
-    this.Delete = this.Delete.bind(this);
+    //this.Delete = this.Delete.bind(this);
+    this.saveHtml = this.saveHtml.bind(this);
+
+    //for the modal
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
   _toggleColor(toggledColor) {
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -105,61 +135,79 @@ class MyEditor extends Component {
   }
   onChange(editorState) {
     this.setState({ editorState });
-    this.props.onChange(this.props.label, this.state.editorState);
+    // this.props.onChange(this.props.label, this.state.editorState);
   }
 
   Delete() {
     this.props.Delete(this.props.label);
   }
+
+  saveHtml() {
+    let html = stateToHTML(this.state.editorState.getCurrentContent());
+    console.log(html);
+    this.props.saveHtml(html);
+  }
   render() {
     return (
-      <Rnd
-        minWidth="400"
-        minHeight="200"
-        style={rndstyle}
-        cancel=".MyEditor"
-        default={{
-          x: 0,
-          y: 0,
-          width: 500
-        }}
-      >
-        <div className="editor-container">
-          <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-          <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-          <button onClick={this._onUnderlineClick.bind(this)}>Underline</button>
+      <div className="MyEditor">
+        <div className="editorTopbar">
+          <Link to="/bookpage">
+            <img alt="File not found" src="/close.png" />
+          </Link>
 
-          <button onClick={this.Delete}>Delete</button>
-
-          <div style={styles.root}>
-            <ColorControls
-              editorState={this.state.editorState}
-              onToggle={this.toggleColor}
-            />
-
-            {
-              // <FontControls
-              //   editorState={this.state.editorState}
-              //   onToggle={this.toggleFont}
-              // />
-            }
-            <div
-              className="MyEditor"
-              style={styles.editor}
-              onClick={this.focus}
-            >
-              <Editor
-                className="not-draggable"
-                label={this.props.label}
-                customStyleMap={colorStyleMap}
-                editorState={this.state.editorState}
-                onChange={this.onChange}
-                ref={ref => (this.editor = ref)}
-              />
-            </div>
-          </div>
+          <Link to="/bookpage">
+            <button onClick={this.saveHtml}>
+              <img alt="File not found" src="/save.png" />
+            </button>
+          </Link>
         </div>
-      </Rnd>
+
+        <div className="editorSidebar">
+          <button onClick={this._onBoldClick.bind(this)}>
+            <img alt="File not found" src="/bold.png" />
+          </button>
+          <button onClick={this._onItalicClick.bind(this)}>
+            <img alt="File not found" src="/italic.png" />
+          </button>
+          <button onClick={this._onUnderlineClick.bind(this)}>
+            <img alt="File not found" src="/underline.png" />
+          </button>
+
+          <button onClick={this.openModal}>
+            <img alt="File not found" src="/colors.png" />
+          </button>
+        </div>
+
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={colorStyles}
+          contentLabel="colors Modal"
+        >
+          <button onClick={this.closeModal}>close</button>
+          <ColorControls
+            editorState={this.state.editorState}
+            onToggle={this.toggleColor}
+          />
+        </Modal>
+
+        {
+          // <FontControls
+          //   editorState={this.state.editorState}
+          //   onToggle={this.toggleFont}
+          // />
+        }
+        <div style={styles.editor} onClick={this.focus}>
+          <Editor
+            label={this.props.label}
+            customStyleMap={colorStyleMap}
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+            ref={ref => (this.editor = ref)}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -180,9 +228,11 @@ class StyleButton extends React.Component {
       style = styles.styleButton;
     }
     return (
-      <span style={style} onMouseDown={this.onToggle}>
-        {this.props.label}
-      </span>
+      <div>
+        <span style={style} onMouseDown={this.onToggle}>
+          {this.props.label}
+        </span>
+      </div>
     );
   }
 }
@@ -211,7 +261,6 @@ const ColorControls = props => {
           active={currentStyle.has(type.style)}
           label={type.label}
           onToggle={props.onToggle}
-          style={type.style}
         />
       ))}
     </div>
@@ -268,15 +317,13 @@ const styles = {
     borderTop: "1px solid #ddd",
     cursor: "text",
     fontSize: 16,
-    width: "100%",
-    backgroundColor: "green"
+    background: "rgb(250,240,242)"
   },
   controls: {
     fontFamily: "'Helvetica', sans-serif",
     fontSize: 14,
     marginBottom: 10,
-    userSelect: "none",
-    width: "100%"
+    userSelect: "none"
   },
   styleButton: {
     color: "#999",
