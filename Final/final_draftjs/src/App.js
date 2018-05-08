@@ -6,46 +6,78 @@ import "./App.css";
 import MyEditor from "./MyEditor2";
 import Bookpage from "./Bookpage";
 import Homepage from "./Homepage";
+import Listpage from "./Listpage";
+import Page from "./Page.js";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      htmls: [],
-      content: ""
-    };
+    let initialState = localStorage.getItem("appData");
+    if (initialState) {
+      this.state = JSON.parse(initialState);
+    } else {
+      this.state = {
+        htmls: [],
+        pages: []
+      };
+    }
+
     this.saveHtml = this.saveHtml.bind(this);
     this.updateAppHtmls = this.updateAppHtmls.bind(this);
+    this.updateAppPages = this.updateAppPages.bind(this);
     this.saveContent = this.saveContent.bind(this);
   }
 
+  componentDidUpdate() {
+    localStorage.setItem("appData", JSON.stringify(this.state));
+  }
+
+  //because the edit function is not one of my goals here, I assume everytime you open a page is always open a new page,
+  //so it will be the last element in the array.
   saveHtml(html) {
     //console.log(html);
-    const htmlCopy = this.state.htmls.slice();
-    htmlCopy.push({
-      label: htmlCopy.length,
+    const index = this.state.pages.length - 1;
+    const pagesCopy = this.state.pages.slice();
+    //console.log(index);
+    pagesCopy[index].htmls.push({
+      label: pagesCopy[index].htmls.length,
       html: html
     });
 
     this.setState({
-      htmls: htmlCopy
+      pages: pagesCopy
     });
   }
 
   updateAppHtmls(htmlsvar) {
+    const index = this.state.pages.length - 1;
+    const pagesCopy = this.state.pages.slice();
+    pagesCopy[index].htmls = htmlsvar;
+
     this.setState({
-      htmls: htmlsvar
+      pages: pagesCopy
     });
   }
 
-  saveContent(content) {
+  updateAppPages(pagesvar) {
     this.setState({
-      content: content
+      pages: pagesvar
+    });
+  }
+
+  saveContent(title, date, content) {
+    const index = this.state.pages.length - 1;
+    const pageCopy = this.state.pages.slice();
+    pageCopy[index].title = title;
+    pageCopy[index].date = date;
+    pageCopy[index].content = content;
+    this.setState({
+      pages: pageCopy
     });
   }
 
   render() {
-    //console.log(this.state.htmls);
+    console.log(this.state.pages);
     return (
       <Router>
         <div className="App">
@@ -53,7 +85,12 @@ class App extends Component {
             exact
             path="/"
             component={props => {
-              return <Homepage content={this.state.content} />;
+              return (
+                <Homepage
+                  pages={this.state.pages}
+                  updateAppPages={this.updateAppPages}
+                />
+              );
             }}
           />
           <Route
@@ -61,7 +98,7 @@ class App extends Component {
             component={props => {
               return (
                 <Bookpage
-                  htmls={this.state.htmls}
+                  htmls={this.state.pages[this.state.pages.length - 1].htmls}
                   updateAppHtmls={this.updateAppHtmls}
                   saveContent={this.saveContent}
                 />
@@ -72,6 +109,23 @@ class App extends Component {
             path="/editorpage"
             component={props => {
               return <MyEditor saveHtml={this.saveHtml} />;
+            }}
+          />
+
+          <Route
+            path="/listpage"
+            component={props => {
+              return <Listpage pages={this.state.pages} />;
+            }}
+          />
+
+          <Route
+            path="/listpage/:id"
+            render={props => {
+              const page = this.state.pages.find(
+                p => p.id === parseInt(props.match.params.id, 10)
+              );
+              return <Page content={page} />;
             }}
           />
         </div>

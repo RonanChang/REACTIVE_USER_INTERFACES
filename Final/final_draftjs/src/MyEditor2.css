@@ -55,6 +55,7 @@
 }
 .demo-editor {
   flex: 934px;
+  cursor: text;
 }
 .MyEditor img {
   filter: invert(40%);

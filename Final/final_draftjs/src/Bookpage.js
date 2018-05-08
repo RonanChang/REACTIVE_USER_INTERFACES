@@ -23,7 +23,9 @@ class Bookpage extends Component {
       videoUrl: [],
       audioUrl: [],
       content: "",
-      tile: new Date().toString
+      date: new Date().toString(),
+      title: "",
+      isSaved: false
     };
     //this.editorChanged = this.editorChanged.bind(this);
     //this.addInput = this.addInput.bind(this);
@@ -34,7 +36,19 @@ class Bookpage extends Component {
     this.audioSelected = this.audioSelected.bind(this);
     this.updateAppHtmls = this.updateAppHtmls.bind(this);
     this.saveContent = this.saveContent.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.ifSaved = this.ifSaved.bind(this);
     this.whatIsDeleted = "";
+  }
+  ifSaved() {
+    if (!this.state.isSaved) {
+      alert("you haven't saved yet!");
+    }
+  }
+  onInputChange(e) {
+    this.setState({
+      title: e.target.value
+    });
   }
 
   saveContent() {
@@ -44,8 +58,13 @@ class Bookpage extends Component {
     const substr = htmlstring.slice(start, end + 1);
     const new_str = htmlstring.replace(substr, "");
     //console.log(new_str);
-    this.props.saveContent(new_str);
+    this.props.saveContent(this.state.title, this.state.date, new_str);
     //console.log(this.refs.content.outerHTML);
+    this.setState({
+      title: "",
+      date: null,
+      isSaved: true
+    });
   }
   // componentDidMount() {
   //   console.log("here");
@@ -221,7 +240,8 @@ class Bookpage extends Component {
   }
 
   render() {
-    //console.log(this.state.htmls);
+    // console.log(this.state.title);
+    // console.log(this.state.date);
     this.updateLabel(this.whatIsDeleted);
     const htmlCopy = this.state.htmls.slice();
     const textBlocks = htmlCopy.map(h => {
@@ -355,6 +375,38 @@ class Bookpage extends Component {
 
     return (
       <div className="Bookpage">
+        <div className="topbar">
+          <Link to="/">
+            <button onClick={this.ifSaved}>
+              <img
+                id="bookpage-return"
+                className="icon"
+                alt="File not found"
+                src="/return.png"
+              />
+            </button>
+          </Link>
+
+          <input
+            id="inputTitle"
+            type="text"
+            value={this.state.title}
+            onChange={this.onInputChange}
+            placeholder="Input a title"
+          />
+
+          <Link to="/">
+            <button onClick={this.saveContent}>
+              <img
+                id="bookpage-save"
+                className="icon"
+                alt="File not found"
+                src="/save.png"
+              />
+            </button>
+          </Link>
+          <img className="icon" alt="File not found" src="/share.png" />
+        </div>
         <div className="sidebar">
           <div className="label_container">
             <img
@@ -431,29 +483,6 @@ class Bookpage extends Component {
               />
             </Link>
           </div>
-        </div>
-
-        <div className="topbar">
-          <Link to="/">
-            <img
-              id="bookpage-return"
-              className="icon"
-              alt="File not found"
-              src="/return.png"
-            />
-          </Link>
-
-          <Link to="/">
-            <button onClick={this.saveContent}>
-              <img
-                id="bookpage-save"
-                className="icon"
-                alt="File not found"
-                src="/save.png"
-              />
-            </button>
-          </Link>
-          <img className="icon" alt="File not found" src="/share.png" />
         </div>
 
         <div ref="content" className="content">

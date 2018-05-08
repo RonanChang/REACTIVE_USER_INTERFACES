@@ -1,0 +1,22 @@
+.Listpage {
+  display: grid;
+  grid-template-columns: 934px auto;
+  grid-template-rows: 90px 1276px;
+  font-size: 30px;
+}
+
+.listTopbar {
+  grid-column: 1/3;
+  grid-row: 1/2;
+
+  border-bottom: 5px solid #8e848424;
+}
+
+.listContent {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.PagePreview {
+  display: flex;
+}

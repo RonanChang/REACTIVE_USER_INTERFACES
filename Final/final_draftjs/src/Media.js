@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Rnd from "react-rnd";
-import "./Media.css";
+
 //import onClickOutside from "react-onclickoutside";
 
 class Media extends Component {
@@ -8,13 +8,14 @@ class Media extends Component {
     super(props);
     this.Delete = this.Delete.bind(this);
     this.state = {
-      visiblility: false
+      visiblility: false,
+      show_border: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
   handleClick() {
-    console.log("clicked!");
+    //console.log("clicked!");
     if (!this.state.visiblility) {
       // attach/remove event handler
       document.addEventListener("click", this.handleOutsideClick, false);
@@ -23,13 +24,14 @@ class Media extends Component {
     }
 
     this.setState(prevState => ({
-      visiblility: !prevState.visiblility
+      visiblility: !prevState.visiblility,
+      show_border: !prevState.show_border
     }));
   }
 
   handleOutsideClick(e) {
     // ignore clicks on the component itself
-    if (this.node.contains(e.target)) {
+    if (this.node === null || this.node.contains(e.target)) {
       return;
     }
 
@@ -51,6 +53,14 @@ class Media extends Component {
   }
 
   render() {
+    const mediaStyle = this.state.show_border
+      ? {
+          border: "2px dashed black",
+          borderRadius: "10px",
+          padding: "10px"
+        }
+      : { border: "none", padding: "10px" };
+
     let media;
     if (this.props.type === "img") {
       media = (
@@ -61,17 +71,30 @@ class Media extends Component {
           width="100%"
           height="100%"
           src={this.props.src}
+          style={mediaStyle}
         />
       );
     } else if (this.props.type === "vid") {
       media = (
-        <video width="100%" height="100%" controls>
+        <video
+          style={mediaStyle}
+          width="100%"
+          height="100%"
+          controls
+          onClick={this.handleClick}
+        >
           <source src={this.props.src} />
         </video>
       );
     } else if (this.props.type === "aud") {
       media = (
-        <audio width="100%" height="100%" controls>
+        <audio
+          style={mediaStyle}
+          width="100%"
+          height="100%"
+          controls
+          onClick={this.handleClick}
+        >
           <source src={this.props.src} />
         </audio>
       );
@@ -94,9 +117,7 @@ class Media extends Component {
         >
           {media}
           {this.state.visiblility && (
-            <button style={this.state.style} onClick={this.Delete}>
-              Delete
-            </button>
+            <button onClick={this.Delete}>Delete</button>
           )}
         </Rnd>
       </div>
