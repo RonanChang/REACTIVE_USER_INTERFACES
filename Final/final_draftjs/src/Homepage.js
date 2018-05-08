@@ -19,6 +19,8 @@ class Homepage extends Component {
     return (
       <div className="Homepage">
         <Link to="/bookpage">bookpage</Link>
+
+        <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }

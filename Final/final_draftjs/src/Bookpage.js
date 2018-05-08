@@ -2,9 +2,10 @@ import React, { Component } from "react";
 //import MyEditor from "./MyEditor";
 import "./Bookpage.css";
 //import Draggable from "react-draggable";
-import Rnd from "react-rnd";
+//import Rnd from "react-rnd";
 import { Link } from "react-router-dom";
 import Media from "./Media";
+import Textblock from "./Textblock";
 // const style = {
 //   display: "flex",
 //   alignItems: "center",
@@ -17,10 +18,12 @@ class Bookpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editors: [],
+      htmls: this.props.htmls,
       imgUrl: [],
       videoUrl: [],
-      audioUrl: []
+      audioUrl: [],
+      content: "",
+      tile: new Date().toString
     };
     //this.editorChanged = this.editorChanged.bind(this);
     //this.addInput = this.addInput.bind(this);
@@ -29,9 +32,25 @@ class Bookpage extends Component {
     this.imgSelected = this.imgSelected.bind(this);
     this.videoSelected = this.videoSelected.bind(this);
     this.audioSelected = this.audioSelected.bind(this);
+    this.updateAppHtmls = this.updateAppHtmls.bind(this);
+    this.saveContent = this.saveContent.bind(this);
     this.whatIsDeleted = "";
   }
 
+  saveContent() {
+    const htmlstring = this.refs.content.outerHTML;
+    const start = htmlstring.search("<button>");
+    const end = htmlstring.search("</button>") + 8;
+    const substr = htmlstring.slice(start, end + 1);
+    const new_str = htmlstring.replace(substr, "");
+    //console.log(new_str);
+    this.props.saveContent(new_str);
+    //console.log(this.refs.content.outerHTML);
+  }
+  // componentDidMount() {
+  //   console.log("here");
+  //   console.log(this.refs.content.outerHTML);
+  // }
   imgSelected() {
     const file = this.refs.uploadImg.files[0];
     const reader = new FileReader();
@@ -141,12 +160,15 @@ class Bookpage extends Component {
       stateCopy = this.state.videoUrl;
     } else if (type === "audio") {
       stateCopy = this.state.audioUrl;
+    } else if (type === "html") {
+      stateCopy = this.state.htmls;
     }
     for (let i = 0; i < stateCopy; i++) {
       const _each = stateCopy[i];
       _each.label = i;
     }
   }
+  /*
   addInput() {
     const stateCopy = this.state.editors.slice();
     stateCopy.push({
@@ -157,7 +179,7 @@ class Bookpage extends Component {
       editors: stateCopy
     });
   }
-
+*/
   Delete(type, label) {
     //console.log(type, label);
     let stateCopy;
@@ -182,13 +204,28 @@ class Bookpage extends Component {
       this.setState({
         audioUrl: stateCopy
       });
+    } else if (type === "html") {
+      stateCopy = this.state.htmls.slice();
+      this.whatIsDeleted = type;
+      stateCopy.splice(label, 1);
+
+      this.setState({
+        htmls: stateCopy
+      });
+      this.updateAppHtmls(stateCopy);
     }
   }
+
+  updateAppHtmls(htmlsvar) {
+    this.props.updateAppHtmls(htmlsvar);
+  }
+
   render() {
-    //console.log(this.state.imgUrl);
+    //console.log(this.state.htmls);
     this.updateLabel(this.whatIsDeleted);
-    const htmlCopy = this.props.html.slice();
+    const htmlCopy = this.state.htmls.slice();
     const textBlocks = htmlCopy.map(h => {
+      /*
       return (
         <Rnd
           key={h.label}
@@ -201,6 +238,16 @@ class Bookpage extends Component {
         >
           <div dangerouslySetInnerHTML={{ __html: h.html }} />
         </Rnd>
+      );
+      */
+      return (
+        <Textblock
+          key={"html" + h.label}
+          type="html"
+          label={h.label}
+          html={h.html}
+          Delete={this.Delete}
+        />
       );
     });
 
@@ -309,12 +356,28 @@ class Bookpage extends Component {
     return (
       <div className="Bookpage">
         <div className="sidebar">
-          <div className="labels">
-            <img className="icon" alt="File not found" src="/wallpaper.png" />
-            <img className="icon" alt="File not found" src="/sticker.png" />
-            <img className="icon" alt="File not found" src="/card.png" />
+          <div className="label_container">
+            <img
+              className="icon icons_for_sidebar"
+              alt="File not found"
+              src="/wallpaper.png"
+            />
+            <img
+              className="icon icons_for_sidebar"
+              alt="File not found"
+              src="/sticker.png"
+            />
+            <img
+              className="icon icons_for_sidebar"
+              alt="File not found"
+              src="/card.png"
+            />
             <label htmlFor="uploadImg">
-              <img className="icon" alt="File not found" src="/uploadImg.png" />
+              <img
+                className="icon icons_for_sidebar"
+                alt="File not found"
+                src="/uploadImg.png"
+              />
               <input
                 id="uploadImg"
                 ref="uploadImg"
@@ -325,7 +388,11 @@ class Bookpage extends Component {
             </label>
 
             <label htmlFor="uploadVideo">
-              <img className="icon" alt="File not found" src="/uploadVid.png" />
+              <img
+                className="icon icons_for_sidebar"
+                alt="File not found"
+                src="/uploadVid.png"
+              />
               <input
                 id="uploadVideo"
                 ref="uploadVideo"
@@ -336,7 +403,11 @@ class Bookpage extends Component {
             </label>
 
             <label htmlFor="uploadAudio">
-              <img className="icon" alt="File not found" src="/uploadAud.png" />
+              <img
+                className="icon icons_for_sidebar"
+                alt="File not found"
+                src="/uploadAud.png"
+              />
               <input
                 id="uploadAudio"
                 ref="uploadAudio"
@@ -345,27 +416,47 @@ class Bookpage extends Component {
                 style={{ display: "none" }}
               />
             </label>
+
+            {
+              // <button onClick={this.addInput}>
+              //   <img src="/addInput.png" />
+              // </button>
+            }
+
+            <Link to="/editorpage">
+              <img
+                className="icon icons_for_sidebar"
+                alt="File not found"
+                src="/addInput.png"
+              />
+            </Link>
           </div>
-
-          {
-            // <button onClick={this.addInput}>
-            //   <img src="/addInput.png" />
-            // </button>
-          }
-
-          <Link to="/editorpage">
-            <img className="icon" alt="File not found" src="/addInput.png" />
-          </Link>
         </div>
 
         <div className="topbar">
           <Link to="/">
-            <img alt="File not found" src="/return.png" />
+            <img
+              id="bookpage-return"
+              className="icon"
+              alt="File not found"
+              src="/return.png"
+            />
           </Link>
-          <img alt="File not found" src="/save.png" />
-          <img alt="File not found" src="/share.png" />
+
+          <Link to="/">
+            <button onClick={this.saveContent}>
+              <img
+                id="bookpage-save"
+                className="icon"
+                alt="File not found"
+                src="/save.png"
+              />
+            </button>
+          </Link>
+          <img className="icon" alt="File not found" src="/share.png" />
         </div>
-        <div className="content">
+
+        <div ref="content" className="content">
           <br />
           {imgs}
           <br />
@@ -373,7 +464,6 @@ class Bookpage extends Component {
           <br />
           {audios}
           <br />
-
           {textBlocks}
         </div>
       </div>
