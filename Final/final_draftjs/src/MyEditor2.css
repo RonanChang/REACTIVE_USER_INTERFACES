@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Pangolin");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 .MyEditor {
   display: grid;
   grid-template-columns: 934px auto;
@@ -40,7 +42,7 @@
   flex: 90px;
   padding-top: 100px;
   width: 90px;
-
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   font-size: 26px;
@@ -56,6 +58,7 @@
 .demo-editor {
   flex: 934px;
   cursor: text;
+  font-family: "Pangolin", cursive;
 }
 .MyEditor img {
   filter: invert(40%);

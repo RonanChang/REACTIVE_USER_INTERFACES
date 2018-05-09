@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+.Homepage {
+  display: grid;
+  grid-template-columns: 934px auto;
+  grid-template-rows: 1256px 100px;
+
+  background-image: url("./book.jpg");
+}
+
+.bottombar {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  background-color: white;
+  text-align: center;
+  -webkit-box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+}
+
+.content {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  text-align: center;
+  overflow: scroll;
+}
+.Profile {
+  position: fixed;
+  left: 50px;
+  right: 50px;
+  top: 50px;
+  height: 38%;
+  background-color: transparent;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 40px;
+  font-family: "Roboto", sans-serif;
+}
+.Books {
+  overflow: scroll;
+  position: relative;
+  height: 600px;
+  top: 580px;
+}
+
+.BookPreview {
+  width: 85%;
+  margin-left: 75px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 10px;
+
+  padding-top: 10px;
+  padding-bottom: 70px;
+  color: black;
+  font-size: 40px;
+  font-family: "Oswald", sans-serif;
+}
+.BookPreview:hover {
+  color: white;
+}
+
+#fir {
+  background-color: rgba(237, 221, 210);
+}
+
+#sec {
+  background-color: rgba(216, 224, 209);
+}
+
+#thir {
+  background-color: rgba(239, 219, 195);
+}
+
+#four {
+  background-color: #ffffffe6;
+}
+
+#profileicon {
+  margin-top: 30px;
+  padding: 20px;
+  height: 50%;
+  filter: invert(100%);
+  border-radius: 10px;
+}
+
+#addbook {
+  height: 80px;
+  margin-top: 40px;
+}
+
+#addbook:hover {
+  filter: invert(70%);
+}

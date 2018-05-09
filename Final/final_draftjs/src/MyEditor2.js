@@ -68,6 +68,10 @@ class MyEditor extends Component {
             colorPicker: {
               className: "color-picker",
               popupClassName: "demo-popup-custom"
+            },
+            fontFamily: {
+              className: "fontfamily",
+              dropdownClassName: "fontfamily"
             }
           }}
         />

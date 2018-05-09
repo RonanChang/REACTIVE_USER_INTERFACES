@@ -23,9 +23,13 @@ class Bookpage extends Component {
       videoUrl: [],
       audioUrl: [],
       content: "",
-      date: new Date().toString(),
+      date: {
+        day: new Date().getDate().toString(),
+        weekday: new Date().getDay().toString()
+      },
       title: "",
-      isSaved: false
+      isSaved: false,
+      id: this.props.id
     };
     //this.editorChanged = this.editorChanged.bind(this);
     //this.addInput = this.addInput.bind(this);
@@ -42,7 +46,13 @@ class Bookpage extends Component {
   }
   ifSaved() {
     if (!this.state.isSaved) {
-      alert("you haven't saved yet!");
+      if (
+        window.confirm(
+          "This page hasn't been saved yet, do you really want to leave?"
+        )
+      ) {
+        window.open("http://localhost:3000/");
+      }
     }
   }
   onInputChange(e) {
@@ -62,7 +72,7 @@ class Bookpage extends Component {
     //console.log(this.refs.content.outerHTML);
     this.setState({
       title: "",
-      date: null,
+      date: {},
       isSaved: true
     });
   }
@@ -241,7 +251,7 @@ class Bookpage extends Component {
 
   render() {
     // console.log(this.state.title);
-    // console.log(this.state.date);
+    console.log(this.state.date);
     this.updateLabel(this.whatIsDeleted);
     const htmlCopy = this.state.htmls.slice();
     const textBlocks = htmlCopy.map(h => {
@@ -377,14 +387,12 @@ class Bookpage extends Component {
       <div className="Bookpage">
         <div className="topbar">
           <Link to="/">
-            <button onClick={this.ifSaved}>
-              <img
-                id="bookpage-return"
-                className="icon"
-                alt="File not found"
-                src="/return.png"
-              />
-            </button>
+            <img
+              id="bookpage-return"
+              className="icon"
+              alt="File not found"
+              src="/return.png"
+            />
           </Link>
 
           <input
@@ -395,7 +403,7 @@ class Bookpage extends Component {
             placeholder="Input a title"
           />
 
-          <Link to="/">
+          <Link to={"/pages/" + this.props.id}>
             <button onClick={this.saveContent}>
               <img
                 id="bookpage-save"
@@ -405,7 +413,6 @@ class Bookpage extends Component {
               />
             </button>
           </Link>
-          <img className="icon" alt="File not found" src="/share.png" />
         </div>
         <div className="sidebar">
           <div className="label_container">

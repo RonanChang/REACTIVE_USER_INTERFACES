@@ -1,22 +1,104 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+
 .Listpage {
   display: grid;
   grid-template-columns: 934px auto;
-  grid-template-rows: 90px 1276px;
-  font-size: 30px;
+  grid-template-rows: 90px 1166px 100px;
+  font-family: "Roboto", sans-serif;
 }
 
 .listTopbar {
   grid-column: 1/3;
   grid-row: 1/2;
-
   border-bottom: 5px solid #8e848424;
+  text-align: center;
+}
+.booktitle {
+  height: 100%;
+}
+
+.booktitle select {
+  margin-top: 15px;
+  font-size: 40px;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+  cursor: pointer;
 }
 
 .listContent {
-  margin-top: 20px;
+  grid-column: 1/3;
+  grid-row: 2/3;
+  margin-top: 10px;
+}
+
+.listpage:not(#month) {
   text-align: center;
 }
 
+#month {
+  background-color: rgb(255, 191, 0);
+  color: white;
+  width: auto;
+  font-size: 20px;
+  padding-left: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.listbottombar {
+  grid-column: 1/3;
+  grid-row: 3/4;
+  text-align: center;
+  -webkit-box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+}
 .PagePreview {
   display: flex;
+  width: 100%;
+  height: 150px;
+  border-bottom: 1px solid #d6d3d3;
+}
+
+.PagePreview .date {
+  border-right: 1px solid #d6d3d3;
+  height: 50%;
+  flex: 25%;
+  margin-top: 35px;
+  text-align: center;
+}
+
+#day {
+  font-size: 46px;
+}
+#weekday {
+  font-size: 20px;
+}
+.PagePreview .title {
+  flex: 75%;
+  margin-top: 30px;
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+}
+#linktoP {
+  flex: 90%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.delete-btn {
+  display: none;
+  margin-right: 0px;
+}
+.delete-btn img {
+  width: 60px;
+}
+
+.title:hover .delete-btn {
+  display: block;
+}
+
+.icon:not(#addpage) {
+  filter: invert(50%);
 }

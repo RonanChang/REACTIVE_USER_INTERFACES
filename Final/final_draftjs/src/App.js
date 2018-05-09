@@ -8,6 +8,7 @@ import Bookpage from "./Bookpage";
 import Homepage from "./Homepage";
 import Listpage from "./Listpage";
 import Page from "./Page.js";
+import Settingpage from "./Settingpage";
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class App extends Component {
         pages: []
       };
     }
-
     this.saveHtml = this.saveHtml.bind(this);
     this.updateAppHtmls = this.updateAppHtmls.bind(this);
     this.updateAppPages = this.updateAppPages.bind(this);
@@ -77,7 +77,8 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.pages);
+    // const pagesCopy = this.state.pages.slice();
+    // console.log(pagesCopy);
     return (
       <Router>
         <div className="App">
@@ -98,6 +99,7 @@ class App extends Component {
             component={props => {
               return (
                 <Bookpage
+                  id={this.state.pages.length - 1}
                   htmls={this.state.pages[this.state.pages.length - 1].htmls}
                   updateAppHtmls={this.updateAppHtmls}
                   saveContent={this.saveContent}
@@ -115,19 +117,26 @@ class App extends Component {
           <Route
             path="/listpage"
             component={props => {
-              return <Listpage pages={this.state.pages} />;
+              return (
+                <Listpage
+                  pages={this.state.pages}
+                  updateAppPages={this.updateAppPages}
+                />
+              );
             }}
           />
 
           <Route
-            path="/listpage/:id"
+            path="/pages/:id"
             render={props => {
               const page = this.state.pages.find(
                 p => p.id === parseInt(props.match.params.id, 10)
               );
-              return <Page content={page} />;
+              return <Page content={page.content} />;
             }}
           />
+
+          <Route path="/setting" component={Settingpage} />
         </div>
       </Router>
     );

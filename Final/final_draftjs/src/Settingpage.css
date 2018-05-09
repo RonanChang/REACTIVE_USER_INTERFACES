@@ -1,0 +1,18 @@
+.Settingpage {
+  display: grid;
+  grid-template-columns: 934px auto;
+  grid-template-rows: 1256px 100px;
+}
+
+.settingbottombar {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  background-color: white;
+  text-align: center;
+  -webkit-box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+  box-shadow: 1px 15px 100px 0px rgba(0, 0, 0, 0.42);
+}
+
+.icon:not(#addpage) {
+  filter: invert(50%);
+}
