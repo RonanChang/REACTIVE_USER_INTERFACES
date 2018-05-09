@@ -21,9 +21,9 @@ class Listpage extends Component {
     this.addPage = this.addPage.bind(this);
   }
   addPage() {
-    const pageCopyHomepage = this.state.pages.slice();
-    const idnum = pageCopyHomepage.length;
-    pageCopyHomepage.push({
+    const pageCopy = this.state.pages.slice();
+    const idnum = pageCopy.length;
+    pageCopy.push({
       id: idnum,
       title: "",
       date: {
@@ -34,27 +34,29 @@ class Listpage extends Component {
       htmls: []
     });
 
-    this.props.updateAppPages(pageCopyHomepage);
+    this.props.updateAppPages(pageCopy);
   }
 
   deletePage(id) {
     const pageCopy = this.state.pages.slice();
     pageCopy.splice(id, 1);
-    this.updateID(pageCopy);
-    this.props.updateAppPages(pageCopy);
+
     this.setState({
       pages: pageCopy
     });
+    this.props.updateAppPages(pageCopy);
   }
 
-  updateID(arr) {
-    for (let i = 0; i < arr; i++) {
-      const _each = arr[i];
+  updateID() {
+    const pageCopy = this.state.pages.slice();
+    for (let i = 0; i < pageCopy; i++) {
+      const _each = pageCopy[i];
       _each.id = i;
     }
   }
   render() {
     //console.log(this.props.pages.length);
+    this.updateID();
     let pages;
     if (this.state.pages.length === 0) {
       pages = "No pages currently.";
@@ -144,6 +146,7 @@ class PagePreview extends Component {
           <Link id="linktoP" to={"/pages/" + this.props.id}>
             {this.props.title}
           </Link>
+
           <button className="delete-btn" onClick={this.deletePage}>
             <img className="icon" alt="File not found" src="/delete.png" />
           </button>

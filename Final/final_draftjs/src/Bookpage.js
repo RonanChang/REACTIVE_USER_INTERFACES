@@ -251,7 +251,7 @@ class Bookpage extends Component {
 
   render() {
     // console.log(this.state.title);
-    console.log(this.state.date);
+    //console.log(this.state.date);
     this.updateLabel(this.whatIsDeleted);
     const htmlCopy = this.state.htmls.slice();
     const textBlocks = htmlCopy.map(h => {
@@ -492,7 +492,7 @@ class Bookpage extends Component {
           </div>
         </div>
 
-        <div ref="content" className="content">
+        <div ref="content" className="bookpagecontent">
           <br />
           {imgs}
           <br />

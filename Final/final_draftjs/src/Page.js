@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 class Page extends Component {
   render() {
-    console.log("here");
+    //console.log("here");
     return (
       <div className="Page">
         <div className="pageTopbar">
